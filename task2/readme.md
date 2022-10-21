@@ -54,3 +54,17 @@ In order to get the order to count up and down for every button press we edited 
 CODE:
 
 <img width="428" alt="Screenshot 2022-10-21 at 15 33 03" src="https://user-images.githubusercontent.com/115703122/197221047-38d3229a-84c8-4c1c-8380-f9ef584e644f.png">
+
+New function meanings:
+
+// Report the cycle count on bottom right of TFT screen
+- void vbdCycle(int cycle);
+
+// Plot y value scaled between min and max on TFT screen on next x coord.
+//    ... When x reaches 240, screen is cleare and x starts from 0 again.
+- void vbdPlot(int y, int min, int max);
+
+
+// Display 4-bit binary value in v on a 7 segment display
+//     ...  digit is from 1 (right-most) to 5 (left most)
+- void vbdHex(int digit, int v);
