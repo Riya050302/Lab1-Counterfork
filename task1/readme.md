@@ -129,6 +129,17 @@ OUTPUT:
 
 <img width="331" alt="Screenshot 2022-10-21 at 14 47 53" src="https://user-images.githubusercontent.com/115703122/197211245-d7d7cba9-5d69-4a35-b967-6e0064690781.png">
 
+## CHALLENGE 
+
+Task: Modify your counter and testbench files so that the en signal controls the direction of counting: ‘1’ for up and ‘0’ for down, via the vbdFlag() function.
+
+In order to get the order to count up and down for every button press we edited the logic for enable with the counter.sv file. Now is enable is high the counter will add 1 bit and if the enable is low the counter will subtract one bit, each clock cycle.
+
+CODE:
+
+<img width="428" alt="Screenshot 2022-10-21 at 15 33 03" src="https://user-images.githubusercontent.com/115703122/197221047-38d3229a-84c8-4c1c-8380-f9ef584e644f.png">
+
+
 
 
 
