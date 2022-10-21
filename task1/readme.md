@@ -39,3 +39,14 @@ Note the following:
 <img width="980" alt="Screenshot 2022-10-20 at 16 13 50" src="https://user-images.githubusercontent.com/115703122/196988521-094c66a3-9144-45d4-9e69-0d935f49b9e1.png">
 
 Select File -> Open New Tab and select Vcounter.vcd file. A GTKwave window will appear. Click Top -> counter, followed by the signals: clk, rst, en and count[7:0].
+
+<img width="673" alt="Screenshot 2022-10-21 at 11 44 52" src="https://user-images.githubusercontent.com/115703122/197178219-6e4ce0e9-6b25-45d4-91d7-df9b474b21b9.png">
+
+## Challenge
+1)Modify the testbench so that you stop counting for 3 cycles once the counter reaches 0x9, and then resume counting. You may also need to change the stimulus for rst.
+
+<img width="605" alt="Screenshot 2022-10-21 at 11 45 14" src="https://user-images.githubusercontent.com/115703122/197178282-a1a77a36-0a44-4704-a5cb-d1b4ebe8bd3d.png">
+
+2)The current counter has a synchronous reset. To implement asynchronous reset, you can change line 11 of counter.sv to detect change in rst signal.
+
+# Task 2 
