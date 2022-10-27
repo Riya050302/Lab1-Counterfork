@@ -17,6 +17,8 @@ Add additinal code:
 
 Code for 7-seg display expained:
 
+top count is a 32 bit number, verlilator does simulate the width given. Verilator with choose widths to simulate quickly. By cast to int it implies its 32 bit width. The more you shift to the right the. more least significant values you drop. Bitwise and with 0xFF to remove additional 0's. 
+
 ## STEP 3
 
 **How the Vbuddy button can be used to toggle counter start/stop:** Vbuddy’s rotary encode has a push-button switch. Vbuddy keeps an internal flag which, by default, will toggle between ‘0’ and ‘1’ each time the button is pressed. 
