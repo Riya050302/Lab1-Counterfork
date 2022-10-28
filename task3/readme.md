@@ -25,3 +25,9 @@ The modified testbench removes enable and replaces it with v->VdbValue() and lb-
 With VbdSetMode(1), you can set the mode to ONE-SHOT behaviour. Whenever the switch is pressed, the flag register is set to ‘1’ as before – now the flag is “ARMED” ready to fire. However, when the flag register is read, it immediate resets to ‘0’, this acts as a reset back to zero so it counts as though lb= 0.
 
 # STEP 2 
+
+Using the one-shot behaviour of the Vbuddy flag, it is possible to provide one clock pulse each time you press the rotary encoder switch. In other words, you can single step the counting action. I used one shot so that lb is high the counter will increment but then instantly be set to the current value and not change until thebutton is pressed again. 
+
+<img width="613" alt="Screenshot 2022-10-28 at 21 24 20" src="https://user-images.githubusercontent.com/115703122/198725930-8c57b9c5-64c8-4a5b-848a-53ed961a74db.png">
+
+
