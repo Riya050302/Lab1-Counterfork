@@ -31,5 +31,6 @@ Finally, I changed the value displayed on the Vbuddy as bcd not dout.
 
 Finally, I changed the doit.sh function by replacing counter as top so that files named with top would compile.
 
+<img width="487" alt="Screenshot 2022-10-29 at 01 24 37" src="https://user-images.githubusercontent.com/115703122/198753265-066b4fcc-5e61-4509-a9bc-18889983bf55.png">
 
 
