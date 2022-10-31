@@ -17,7 +17,20 @@ Add additinal code:
 
 Code for 7-seg display expained:
 
-top count is a 32 bit number, verlilator does simulate the width given. Verilator with choose widths to simulate quickly. By cast to int it implies its 32 bit width. The more you shift to the right the. more least significant values you drop. Bitwise and with 0xFF to remove additional 0's. 
+1) The output is inputed into 4 vbdHex functions, this produces four counter displays which will visually represent the counter in hexidecimal form.
+
+2)The first input represents the index of each display.
+
+3)The input top ->count represents the output value from the counter.
+
+4)Top count is a 32 bit number. By setting the conditon >> 16 this represents a 16 bit shift this drops will drop the least significant bits. The same is done with each display so that once you pass a certain number the counter moves to the next display index.
+
+5)Finally we have a bitwise and with 0xFF to remove additional 0's, produced from shifting. In a nutshell, “& 0xff” effectively masks the variable so it leaves only the value in the last 4 bits, and ignores all the rest of the bits. 
+
+Example:
+
+<img width="476" alt="Screenshot 2022-10-31 at 19 31 20" src="https://user-images.githubusercontent.com/115703122/199093692-28425403-7175-4380-8b87-ffed99dd283e.png">
+
 
 ## STEP 3
 
