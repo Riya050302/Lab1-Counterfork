@@ -22,6 +22,8 @@ We were also given the top.sv code:
 
 <img width="631" alt="Screenshot 2022-10-29 at 01 17 24" src="https://user-images.githubusercontent.com/115703122/198752962-3c5a3011-f10e-4c0b-86c5-017118a3c082.png">
 
+**Note: Wire is an internal signal, which are neither inputs nor outputs. These signals are not “visible” outside the module and are declared as local signals (similar to local variables in C++ functions).**
+
 Top.sv is a top level module that takes the counter module, and feed the set inputs through it . The interconnecting wire "count" is then connected to the input of the ROM gate.
 
 Next, I created the top_tb.cpp testbench using previous code. I changed headers and edited the code to change Vcounter to Vtop within the testbench. I then set the values of enable and reset to 1 and 0 respectivily. 
