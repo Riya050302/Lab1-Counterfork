@@ -38,6 +38,8 @@ The reason why Verilator is so fast is fundamentally because it translates Veril
 - The parameter of WIDTH is defined as 8 bits wide.
 - It takes in various input values, such as clock, reset and enable. With an output counter of 8 bits [7:0]
 - The always_ff @ (posedge clk) flipflop command used, without posedge reset, therefore the flipflop was sychronous (only reset on pos clock edge)
+- System Verilator uses idioms to describe flip flops. The “always” followed by @(posedge clk) means that when any signal in the posedge of the clock is asserted, “count” is executed.
+
 - ‘<=’ in line 12 and 13 are non-block assignments which should be used within an always_ff block.
 - {WIDTH{1’b0}} in line 12 uses the concatenation operator { } to form WIDTH bits of ‘0’, which will then form a 7 bit output of value 0. 
 - The 8 bit number is is formed by carrying out bitwise manipulation and concatenation: {WIDTH-1{1'b0}, en}. The WIDTH - 1 means the most significant 7 bits is set to 0. The LSB = enable value. When enable value is high (1) the counter increments, otherwise (0) the counter is unchanged.
@@ -56,7 +58,6 @@ The Bits are assigned and concatinated as follows:
 
 1) Add headers
 2) Instiate i (counts clock cycles) and clk (clock signal of module)
-* Modules are insantiated, that means that each time you use a module in SV, you “clone” a separate entity – the clone has a totally separate existence. SV is entirely hierarchical. Modules can instantiate other modules. All modules have inputs and outputs
 4) Instantiate Verilator counter module in C++ code, this is the DUT.
 5)  Dumps waveform data to counter.vcd, which will then be viewed on GTKWave
 6)  Set signal values (Top represents top level entry, only these are visible)
