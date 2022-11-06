@@ -15,6 +15,10 @@ The reason why Verilator is so fast is fundamentally because it translates Veril
 
 **HDL** Hardware description langauge, spefics logic functions and programmes based around hardware. 
 
+**Types of Modules:** 
+* Behavioural - Describes what the module does.
+* Structural - describes how it is built.
+
 ## The Objectives of the task is to:
 
 - write a basic testbench in C++ to verify the counter is working
@@ -52,11 +56,12 @@ The Bits are assigned and concatinated as follows:
 
 1) Add headers
 2) Instiate i (counts clock cycles) and clk (clock signal of module)
-3) Instantiate Verilator counter module in C++ code, this is the DUT.
-4)  Dumps waveform data to counter.vcd, which will then be viewed on GTKWave
-5)  Set signal values (Top represents top level entry, only these are visible)
-6)  For loop for running the clock cycles, this toggles clock cycles. This outputs trace every half cycle and evaluates both edges of clock.
-7)  Changes rst and en signals.
+* Modules are insantiated, that means that each time you use a module in SV, you “clone” a separate entity – the clone has a totally separate existence. SV is entirely hierarchical. Modules can instantiate other modules. All modules have inputs and outputs
+4) Instantiate Verilator counter module in C++ code, this is the DUT.
+5)  Dumps waveform data to counter.vcd, which will then be viewed on GTKWave
+6)  Set signal values (Top represents top level entry, only these are visible)
+7)  For loop for running the clock cycles, this toggles clock cycles. This outputs trace every half cycle and evaluates both edges of clock.
+8)  Changes rst and en signals.
 
 ## STEP 5: Compiling 
 
