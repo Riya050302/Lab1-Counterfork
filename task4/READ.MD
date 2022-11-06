@@ -16,6 +16,8 @@ This file takes in an 8 bit input, from the counter converting the output of the
 - Check each for bit from least significant to most that there are no values above 5, if there are there is overflow to the next set of 4 bits.
 - Output the most significant 12 bits as you BCD value.
 
+**Note the always comb Blocl** There is a form of always block which allows the specification of combinational circuits.  However, there is no advantage in this form of specification as compare to multiple assign statements.
+
 <img width="636" alt="Screenshot 2022-10-29 at 01 07 10" src="https://user-images.githubusercontent.com/115703122/198752434-2c468ebd-0b28-4416-aa45-a9302e3e0517.png">
 
 We were also given the top.sv code:
