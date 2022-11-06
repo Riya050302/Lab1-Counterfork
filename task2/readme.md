@@ -3,6 +3,8 @@
 
 In this task, you will learn how to modify the testbench to interface with the Vbuddy board. 
 
+<img width="1306" alt="Screenshot 2022-11-06 at 23 07 21" src="https://user-images.githubusercontent.com/115703122/200200303-69efa7f3-d7fd-4dcf-8b0d-8fda6dbf08a2.png">
+
 ## STEP 1
 
 1) Move counter.sv and counter_tb.cpp into task 2 folder 
