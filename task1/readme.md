@@ -1,5 +1,4 @@
-# Task 1 
-## Setting up Waveforms of Counter 
+# Task 1 - Setting up Waveforms of Counter 
 
 ## Background 
 
@@ -11,6 +10,10 @@ For example, Verilator cannot evaluate glitches in a circuit. Furthermore, Veril
 The reason why Verilator is so fast is fundamentally because it translates Verilog/System Verilog into C++ (or System C) code. Then it uses standard, highly efficient C++ compiler to produce natively executable “model” or program of the design (known as Device-Under-Test or DUT). 
 
 **Vbuddy** - was created to provide a bridge between the Verilator simulator and actual physical electronics such as microphone signal and 7-segment displays.
+
+**RTL** For this module, you will learn a particular level of  abstraction of the processor hardware known as Register Transfer Level (RTL).  In RTL specifications, all combinational logic are sandwiched between registers controlled by one or more clock signal.
+
+**HDL** Hardware description langauge, spefics logic functions and programmes based around hardware. 
 
 ## The Objectives of the task is to:
 
