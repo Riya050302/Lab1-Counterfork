@@ -56,8 +56,8 @@ The Bits are assigned and concatinated as follows:
 
 <img width="666" alt="Screenshot 2022-10-20 at 16 02 12" src="https://user-images.githubusercontent.com/115703122/196985685-e6ee61cf-5fa7-4faa-becc-646d85d1c44e.png">
 
-1) Add headers
-2) Instiate i (counts clock cycles) and clk (clock signal of module)
+1) Add headers -  Verilated.h must always be included. If you want Verilator to produce the trace file for laer inspection, Verilated_vcd_c.h must also be included.
+2) Instiate i (counts clock cycles) and clk (clock signal of module) - internal variables.
 4) Instantiate Verilator counter module in C++ code, this is the DUT.
 5)  Dumps waveform data to counter.vcd, which will then be viewed on GTKWave
 6)  Set signal values (Top represents top level entry, only these are visible)
@@ -87,6 +87,18 @@ CLK: The clock cycles
 Count: The output of modules, goes back to 0 at reset, when enable is high at each postive edge will increment by 1 until it goes over 8 bit value.
 Enable: When high activates clock, when low pauses counter.
 Reset: When high, in next cycle the clock will go back to 0.
+
+Since Verilator is cycle-by-cycle simulator, the time axis has no significant.  Each clock tick (i.e. half a clock cycle) is display as 1ps, which is of course nonsense.
+Nevertheless, the states that the circuit goes through are accurate.  The counter output count[7:0] shows values that is incrementing one every clock cycle.  The effect of rst and en signals can also be observed.
+
+
+**Summary of Steps**
+1. Use VS Code to create and edit counter.sv. 
+2. Use VS code to create and edit the testbench file counter_tb.cpp. 
+3. Use Verilator to compile the HDL source code (.sv) with the testbench(.cpp) and the Vbuddy API (Vbuddy.cpp) to produce the C++ program
+which contains the synthesized hardware, the testbench procedures etc.,and a bunch of header files. 
+4. Verilator also produces a make file (Vcount.mk) which tells the C++ how to compile and link everything together to produce the final executeable model of the counter with built-in testbench (the Vcounter binary file). 
+5. This executeable binary of the counter is a native ce program which can be executed by the computer to produce the output signals, which can be displayed as waveform or even drive an external unit such as the Vbuddy.
 
 
 ## Challenge
