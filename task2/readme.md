@@ -12,7 +12,7 @@ In this task, you will learn how to modify the testbench to interface with the V
 3) Enter ls /dev/tty.u* in terminal
 4) Get outpit: /dev/tty.usbserial-110
 
-## STEP 2
+## STEP 2: Modify testbench for Vbuddy
 Add additinal code:   
 
 <img width="610" alt="Screenshot 2022-10-21 at 14 28 16" src="https://user-images.githubusercontent.com/115703122/197207157-34a35141-6bda-4618-a7ca-94198d8d1784.png">
@@ -28,6 +28,7 @@ Code for 7-seg display expained:
 4)Top count is a 32 bit number. By setting the conditon >> 16 this represents a 16 bit shift this drops will drop the least significant bits. The same is done with each display so that once you pass a certain number the counter moves to the next display index.
 
 5)Finally we have a bitwise and with 0xFF to remove additional 0's, produced from shifting. In a nutshell, “& 0xff” effectively masks the variable so it leaves only the value in the last 4 bits, and ignores all the rest of the bits. 
+The int type is included to avoid error but unnnessecary, in case in different variable type.
 
 Example:
 
@@ -57,6 +58,8 @@ OUTPUT:
 Code:
 
 <img width="300" alt="Screenshot 2022-10-21 at 14 47 15" src="https://user-images.githubusercontent.com/115703122/197211102-02948bfc-d305-4057-a9ae-c5044a39c78f.png">
+
+- This includes the data between 0 and 255 cycles.
 
 OUTPUT:
 
