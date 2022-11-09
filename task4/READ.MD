@@ -20,6 +20,12 @@ This file takes in an 8 bit input, from the counter converting the output of the
 
 <img width="636" alt="Screenshot 2022-10-29 at 01 07 10" src="https://user-images.githubusercontent.com/115703122/198752434-2c468ebd-0b28-4416-aa45-a9302e3e0517.png">
 
+Before we examine this algorithm in detail, let us consider the arithmetic operation of shifting left by one bit.  This is the same as a  x 2 operation.
+
+
+If we do it 8 times, then we have multiplied the original number by 256 or 2 8. Now if you ignore the bottom 8-bit through a truncation process, you effectively divide the number by 256.  In other words, we get back to the original number in binary (or in hexadecimal).
+
+
 We were also given the top.sv code:
 
 <img width="631" alt="Screenshot 2022-10-29 at 01 17 24" src="https://user-images.githubusercontent.com/115703122/198752962-3c5a3011-f10e-4c0b-86c5-017118a3c082.png">
