@@ -46,6 +46,7 @@ I began by first understanding how the data memmory module worked, understanding
 Next, I made sure to understand the instructon format. As load and store are register addressed, in order to test I would first have to load values into registers using addi instructions. Additionally, the store instruction introduced the S type instruction, which would require changes to the sign extend module.
 
 Once, I had done initial planning. In order to implement load and store word instructions, I did the following:
+
 1)**Creating the Data Memory module** - The data memory required the following inputs: data memory address (ALUout), the write data, write enable, clock, ALUout and read data. The width of the data coming into the data memory was 32 bits, as its the addition of RD1 and Immidient Extended. I decided to set the address width as 2^17-1:0 as in the Project brief we were told Data Memory could only use registers 0x0001FFFF to 0x00001000.
 
 <img width="897" alt="Screenshot 2022-12-11 at 12 48 44" src="https://user-images.githubusercontent.com/115703122/206904483-a5761a04-2590-47fc-8ed6-1772a30dd1ad.png">
@@ -58,7 +59,7 @@ Once, I had done initial planning. In order to implement load and store word ins
 
 <img width="471" alt="Screenshot 2022-12-11 at 12 49 28" src="https://user-images.githubusercontent.com/115703122/206904515-cada2c3e-320b-4e9c-85c3-462deaaee4ee.png">
 
-Design Decisions and Changes:
+#### Design Decisions and Changes:
 
 **Control Unit changes to remove Combinational loop** 
 
@@ -69,6 +70,8 @@ The biggest issue with debugging was a combinational loop occuring in the contro
 <img width="778" alt="Screenshot 2022-12-11 at 12 33 46" src="https://user-images.githubusercontent.com/115703122/206903806-44b003a9-796e-47ed-85c2-a78859dd1e46.png">
 
 **Changing ResultSrc from 1 to 2 bits**
+
+Another big change to the data memory architecture was changing ResultSrc from 1 bit to 2 bits. This was changed after trying to implement jump. Orginally, the way I hoped to implement it was by having to multiplexers so that the value going into WD3 in the reg file could be determined by whether ResultSrc was high or if a trigger signal Jal_sel was high (this went high if a jal instruction was present). I decided to change this as ResultSrc could be used to idenify both jumps and load instructions by extending it to 2 bits and setting the values in the control unit. This method made it easier to pipeline and made the code cleaner, without requiring an extra jal_sel in the writeback section. 
 
 
 
@@ -90,7 +93,7 @@ The output was 0x001 into a0 which was as expected proving the lw and sw instruc
 
 What I'd do differently: 
 
-1)
+1) If I was to do this again, I would ensure the control unit was correct and robust instead of making short term fixes such as removing signals and making multiple if else statements, as the control unit was essential for later changes. Not ensuring the control unit was correct at the beginning resulted in much more time debugging.
 
 ### Shift Instruction
 
