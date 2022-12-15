@@ -8,7 +8,7 @@ For my contribution to the coursework, I contributed in 5 ways to the final RISC
 2) For the Lab 5 brief I was tasked with implementing the Data memory in order to implement the reference programme.
 3) I also implemented the artitecture for a shift slli instructure.
 4) I worked with Bhavya to understand and implementing the changes indeeded to execute the reference programme. This included the changes indeed to implement load byte and store, implementing adding registers and load upper immidient. 
-5) In order to debgug the pipelined cpu created by Isabel and Ethan, Bhavya and I redesigned parts of the CPU artictecture so that it was more in line with the pipeline diagram. 
+5) As we had implemented the reference additions before pipelining, I merged the working reference code cpu with the pipelined f1, to produce our final working Pipelined RISC-V F1 and Reference.
 
 ### Lab 4 - Programme Counter and Control Unit/Sign Extend Debugging
 
@@ -188,6 +188,17 @@ Implementing LUI instruction:
 <img width="605" alt="Screenshot 2022-12-15 at 16 55 35" src="https://user-images.githubusercontent.com/115703122/207920982-6fe32901-d5bb-440a-a1eb-898eebdbc6ab.png">
 
 ### Pipeline Adding Reference Programme
+
+Feeding through funct3:
+
+Changing LB_EN to ResultSrc:
+
+Debugging LUI:
+
+<img width="254" alt="Screenshot 2022-12-15 at 17 02 10" src="https://user-images.githubusercontent.com/115703122/207922498-9eb5f6da-3db9-4fa6-a7f7-3c525887ac45.png">
+
+
+Removing Break:
 
 ## Conclusion
 
