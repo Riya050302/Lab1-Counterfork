@@ -71,7 +71,7 @@ The biggest issue with debugging was a combinational loop occuring in the contro
 
 **Changing ResultSrc from 1 to 2 bits**
 
-Another big change to the data memory architecture was changing ResultSrc from 1 bit to 2 bits. This was changed after trying to implement jump. Orginally, the way I hoped to implement it was by having to multiplexers so that the value going into WD3 in the reg file could be determined by whether ResultSrc was high or if a trigger signal Jal_sel was high (this went high if a jal instruction was present). I decided to change this as ResultSrc could be used to idenify both jumps and load instructions by extending it to 2 bits and setting the values in the control unit. This method made it easier to pipeline and made the code cleaner, without requiring an extra jal_sel in the writeback section. 
+Another big change to the data memory architecture was changing ResultSrc from 1 bit to 2 bits. This was changed after trying to implement jump. Orginally, the way I hoped to implement it was by having to multiplexers so that the value going into WD3 in the reg file could be determined by whether ResultSrc was high or if a trigger signal Jal_sel was high (this went high if a jal instruction was present). Bhavya and I decided to change this as ResultSrc could be used to idenify both jumps and load instructions by extending it to 2 bits and setting the values in the control unit. This method made it easier to pipeline and made the code cleaner, without requiring an extra jal_sel in the writeback section. 
 
 
 
@@ -151,16 +151,43 @@ The ouput resulted in a0 outputting a value of 0xFF shifted by 1 with a 0 last b
 
 <img width="688" alt="Screenshot 2022-12-14 at 13 39 55" src="https://user-images.githubusercontent.com/115703122/207610175-908ba567-748c-4df3-916c-630dc6e71d46.png">
 
-
 What I'd do differently:
 
 - I would have looked into the RISC-V artictecture at the beginning to see if there were any signals (such as ALUctrl) which could have been used to implement a shift within the current artictecture, instead of first trying to add new modules and multiplxers which is not needed and messy.
 
 ### Reference Programme 
 
-lbu and stu instructions 
+Bhavya and I were tasked with completing the additions needed to execute the reference programme. We started by implementing the LBU (load byte) and SB (store byte) instructions. The first stage of implementing the instruction was planning the changes needed:
 
-### Pipeline Debugging and Adding Reference Programme
+1) First I realised that data memory was byte addressed and not word address, this would require changing the design of the data memory module. This meant that if I implemented byte addressing store and load byte would be simple as I would take from addresses which byte was required. However, to still implement load word and store word, this would require concatinated 4 bytes (addresses) together to output a 32 bit value.
+
+<img width="629" alt="Screenshot 2022-12-15 at 16 38 48" src="https://user-images.githubusercontent.com/115703122/207917478-9d45770a-4d02-4ca3-9ffd-e227f2c136b4.png">
+
+2) Additionally, then we had to decide which values we would take for a store and load word. If we loaded in the address 0x0005 for a store word would we store bytes in addresses 0x0005, 0x0006,0x0007 and 0x0008 OR 0x0004,0x0005, 0x0006 and 0x0007. We believed this was in the mind of the programmer and decided that every load word shoudl always store or load from an address that was a mulitiple of 4. To do this we added the additional var inputs to set every address to the last muliple of 4, then concatinate.
+
+<img width="905" alt="Screenshot 2022-12-15 at 16 47 37" src="https://user-images.githubusercontent.com/115703122/207919274-d630d3cb-cec7-497e-8396-fbb6d5b7dfa4.png">
+
+3) As we needed different functions for store byte and store word and loads and stores, we have to feed funct3 into the data memory module. Funct3 would determine a byte or word instruction and Resultsrc would determine a load, while Memwrite determined a store.
+
+<img width="1048" alt="Screenshot 2022-12-15 at 16 49 43" src="https://user-images.githubusercontent.com/115703122/207919761-ff6be36b-ec35-42f0-a1f4-c8619ab03710.png">
+
+Implementing Add instruction:
+
+1) We added it to the control unit:
+
+<img width="196" alt="Screenshot 2022-12-15 at 16 56 18" src="https://user-images.githubusercontent.com/115703122/207921178-b21b659e-dbc8-4dfa-8982-fc170fc559c7.png">
+
+Implementing LUI instruction:
+
+1) We needed to add the instruction to the control unit, adding an additional signal called LUI_EN:
+
+<img width="498" alt="Screenshot 2022-12-15 at 16 55 58" src="https://user-images.githubusercontent.com/115703122/207921088-5bb22053-da5d-4e79-ac8f-21b34ed9ac91.png">
+
+2) LUI_EN was fed into the RegFile.sv module, and used to either feed through ImmOP from the sign extend into a register or if theres no LUI instruction then feed through write data:
+
+<img width="605" alt="Screenshot 2022-12-15 at 16 55 35" src="https://user-images.githubusercontent.com/115703122/207920982-6fe32901-d5bb-440a-a1eb-898eebdbc6ab.png">
+
+### Pipeline Adding Reference Programme
 
 ## Conclusion
 
