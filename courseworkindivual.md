@@ -35,6 +35,13 @@ What I'd do differently:
 
 ### Data Memory 
 
+When splitting the tasks for F1 we decided that 2 of the team would make the machine code, while the other two would implement it by adding the needed changes to the RISC-V Single Cycle. The new instructions needed were, data memory (load and store word) as we had not done it in Lab4, Shift and Jump. I was in charge of implementing load and store word, as well as logical shift left. When trying to implement it the I began by looking at the RISC-V diagram given in lectures to see the input and output signals driving the Data Memory Module:
+
+<img width="957" alt="Screenshot 2022-12-11 at 12 36 28" src="https://user-images.githubusercontent.com/115703122/206903936-efe057d0-ee8c-4eb2-89d9-1cedbbcad260.png">
+
+In order to implement load and store word instructions:
+1)
+
 
 ### Shift Instruction
 
