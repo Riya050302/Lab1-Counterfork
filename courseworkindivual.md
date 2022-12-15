@@ -93,18 +93,68 @@ The output was 0x001 into a0 which was as expected proving the lw and sw instruc
 
 What I'd do differently: 
 
-1) If I was to do this again, I would ensure the control unit was correct and robust instead of making short term fixes such as removing signals and making multiple if else statements, as the control unit was essential for later changes. Not ensuring the control unit was correct at the beginning resulted in much more time debugging.
+If I was to do this again, I would ensure the control unit was correct and robust instead of making short term fixes such as removing signals and making multiple if else statements, as the control unit was essential for later changes. Not ensuring the control unit was correct at the beginning resulted in much more time debugging.
 
 ### Shift Instruction
 
-In addition to implementing the data memory, I also implemented the changed needed for the slli instruction used within our machine code. 
+In addition to implementing the data memory, I also implemented the changed needed for the slli instruction used within our machine code. I made an orirginal version, which consisted of adding an additional module which would take RD1 into a shift module, and if shift select was high then RD1 would be shifted to the left by one bit. The diagram and implementation of the first version of shift is shown below:
 
+<img width="531" alt="Screenshot 2022-12-14 at 11 36 42" src="https://user-images.githubusercontent.com/115703122/207585153-2d7e218a-1049-4e5e-987d-cef1c89cb810.png">
 
-Design Decisions and Changes:
+Here is the new control unit instruction, shift select added to the control unit used for shift mux.:
+
+<img width="402" alt="Screenshot 2022-12-14 at 13 11 29" src="https://user-images.githubusercontent.com/115703122/207604251-1c1998ff-5d54-4f6c-9636-bb893e520146.png"> 
+
+In order to implement a shift, I added to things to the CPU:
+
+1)**Shift Module:** - The Shift module takes in the value of RD1 and concatinates the 32 bits in order to implement the shift.
+
+<img width="744" alt="Screenshot 2022-12-14 at 13 12 43" src="https://user-images.githubusercontent.com/115703122/207604517-a5f3ea9a-3937-448a-93ca-e99a150fdfce.png">
+
+2)**Shift Mux:** - For our F1 machine code we used a slli instruction which was a logical shift left, in order to implement this orginallly I added the shift instruction to the control signal, so that for the shift opcode and function 3 a shift select would be set high which would set a multiplexer at the end of the cpu to the value in RD1 concanticated one bit to the left.
+
+<img width="710" alt="Screenshot 2022-12-14 at 13 25 22" src="https://user-images.githubusercontent.com/115703122/207607143-8e7fa74f-7c37-4c1e-a3b4-112494272a73.png">
+
+**Issues with this version:**
+- Using a shift module meant that the were additions to the architecture such as mux's and a shift module which are unnessary and overly compilicated.
+- The architecture could only implement a shift by 1 bit and did not fufil the requirements of the instruction to shift by ImmOp.
+- Using a concantination to shift was inefficient and its better to use the inbuilt shift operator.
+- It was difficult to combine this shift implementation with the jump additions.
+
+#### Design Decisions and Changes:
+After trying to merge this version of shift I realised that the inclusion of a flipflop inside the shift module to implement a shift would have knock on affects to other instructions and that there was a better way to approach the design for a shift which was more in line with our current RISC-V architecture:
+
+**Final version:**
+The final version involed setting ALUctrl in s shift operation to 001 so that the shift can be implemented inside the ALU module.
+
+Control Unit:
+
+<img width="265" alt="Screenshot 2022-12-14 at 13 26 21" src="https://user-images.githubusercontent.com/115703122/207607342-1b7eec38-041a-4b77-b00f-f64b46fada1c.png">
+
+ALU module:
+
+<img width="322" alt="Screenshot 2022-12-14 at 13 26 40" src="https://user-images.githubusercontent.com/115703122/207607411-6416d5a6-537a-430e-8a3a-38ffc78ad610.png">
+
+- Ultilizes the fact that there are free bits in ALUctrl to implement a shift instruction inside the ALU module.
+- No changes required to architecture as shift occurs in ALU.
+- As we use the shift operator we can shift by different amounts using Immop.
+
+**Testing:**
+
+I created simple machine code to load the value 0xFF into s0 and then shift the value left by 1 simillar to the shifts in our F1 machine code:
+
+<img width="279" alt="Screenshot 2022-12-14 at 13 38 36" src="https://user-images.githubusercontent.com/115703122/207609911-9e457f30-ad90-4579-a3b3-ae5daaebb3f9.png">
+
+**Output:**
+
+The ouput resulted in a0 outputting a value of 0xFF shifted by 1 with a 0 last bit, as expected, proving the slli shift instruction now worked.
+
+<img width="688" alt="Screenshot 2022-12-14 at 13 39 55" src="https://user-images.githubusercontent.com/115703122/207610175-908ba567-748c-4df3-916c-630dc6e71d46.png">
 
 
 What I'd do differently:
 
+- I would have looked into the RISC-V artictecture at the beginning to see if there were any signals (such as ALUctrl) which could have been used to implement a shift within the current artictecture, instead of first trying to add new modules and multiplxers which is not needed and messy.
 
 ### Reference Programme 
 
