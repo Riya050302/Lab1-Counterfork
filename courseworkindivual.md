@@ -171,22 +171,6 @@ Bhavya and I were tasked with completing the additions needed to execute the ref
 
 <img width="1048" alt="Screenshot 2022-12-15 at 16 49 43" src="https://user-images.githubusercontent.com/115703122/207919761-ff6be36b-ec35-42f0-a1f4-c8619ab03710.png">
 
-Implementing Add instruction:
-
-1) We added it to the control unit:
-
-<img width="196" alt="Screenshot 2022-12-15 at 16 56 18" src="https://user-images.githubusercontent.com/115703122/207921178-b21b659e-dbc8-4dfa-8982-fc170fc559c7.png">
-
-Implementing LUI instruction:
-
-1) We needed to add the instruction to the control unit, adding an additional signal called LUI_EN:
-
-<img width="498" alt="Screenshot 2022-12-15 at 16 55 58" src="https://user-images.githubusercontent.com/115703122/207921088-5bb22053-da5d-4e79-ac8f-21b34ed9ac91.png">
-
-2) LUI_EN was fed into the RegFile.sv module, and used to either feed through ImmOP from the sign extend into a register or if theres no LUI instruction then feed through write data:
-
-<img width="605" alt="Screenshot 2022-12-15 at 16 55 35" src="https://user-images.githubusercontent.com/115703122/207920982-6fe32901-d5bb-440a-a1eb-898eebdbc6ab.png">
-
 ### Pipeline Adding Reference Programme
 
 Feeding through funct3:
