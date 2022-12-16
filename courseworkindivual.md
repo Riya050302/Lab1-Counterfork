@@ -173,17 +173,22 @@ Bhavya and I were tasked with completing the additions needed to execute the ref
 
 ### Pipeline Adding Reference Programme
 
-Feeding through funct3:
-
-Changing LB_EN to ResultSrc:
-
 Debugging LUI:
+
+In order to implement the Reference programme in the pipelined cpu, we had to pipeline the funct3 signal as it was generated in the decode stage but executed in the memory stage. Additionally, I added the reference instructions into the control unit and added the lbu and sb data memory module.
+
+There were two main issues when trying to debug:
+
+1) I belived that if the LUI_En was fed into the regfile it wasn't nessecary to carry it into the Writeback, however I didn't realise the fact that Immop was being written into WD3 which occurs in the Writeback stage. Therefore I needed to add an additional flipflop around the LUI_EN and ImmOpExt signals in order to make sure LUI_EN and ImmOpExt were high at the same time to write into a register.
 
 <img width="254" alt="Screenshot 2022-12-15 at 17 02 10" src="https://user-images.githubusercontent.com/115703122/207922498-9eb5f6da-3db9-4fa6-a7f7-3c525887ac45.png">
 
+2) The second issue I debugged was realising a function inside the testbench was cutting the plot off before it could end. This was used in the non-pipelined reference code to speed up the time to simulate. However, as the pipelined version included NOP's this meant that the values had not all been written into a0. This was fixed by removing the function from the testbench. 
 
-Removing Break:
+<img width="182" alt="Screenshot 2022-12-16 at 00 50 38" src="https://user-images.githubusercontent.com/115703122/207997108-3daef2bf-ab10-456a-8f51-c568e63fc6a4.png">
 
 ## Conclusion
+
+
 
 reflection about what you have learned in this project, mistakes you made, special design decisons, and what you might do differently if you were to do it again or have more time
